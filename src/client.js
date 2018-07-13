@@ -3,6 +3,7 @@ import Loadable from 'react-loadable';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { hydrate } from 'react-dom';
+import { persistStore } from 'redux-persist';
 
 // Components.
 import App from './shared/containers/App';
@@ -21,7 +22,11 @@ window.main = () => {
           <App/>
         </BrowserRouter>
       </Provider>,
-      document.getElementById('root')
+      document.getElementById('root'),
+      () => {
+        // Only persist state when page is fully hydrated.
+        persistStore(store);
+      }
     );
   });
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 
 // Server.
@@ -17,6 +18,9 @@ import { StaticRouter } from 'react-router-dom';
 import App from './shared/containers/App';
 import Template from './server/components/Template';
 
+// Utilities.
+import reduxConfigureStore from './shared/utilities/redux/reduxConfigureStore';
+
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
 const server = express();
@@ -32,11 +36,15 @@ server.get('/*', (req, res) => {
   const context = {};
   const modules = [];
 
+  const store = reduxConfigureStore();
+
   const markup = renderToString(
     <Capture report={moduleName => modules.push(moduleName)}>
-      <StaticRouter context={context} location={req.url}>
-        <App/>
-      </StaticRouter>
+      <Provider store={store}>
+        <StaticRouter context={context} location={req.url}>
+          <App/>
+        </StaticRouter>
+      </Provider>
     </Capture>
   );
 

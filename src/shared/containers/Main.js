@@ -7,6 +7,7 @@ import '../assets/styles/Main.css';
 // Containers.
 import HomeLoadable from './Home/HomeLoadable';
 import AboutLoadable from './About/AboutLoadable';
+import CounterLoadable from './Counter/CounterLoadable';
 
 // Components.
 import Logo from '../components/Logo';
@@ -30,11 +31,15 @@ const Main = () => (
       <li>
         <Link to="/about">About</Link>
       </li>
+      <li>
+        <Link to="/counter">Counter</Link>
+      </li>
     </ul>
 
     <Switch>
       <Route exact path="/" component={HomeLoadable}/>
       <Route path="/about" component={AboutLoadable}/>
+      <Route path="/counter" component={CounterLoadable}/>
     </Switch>
 
   </div>

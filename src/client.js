@@ -10,6 +10,7 @@ import App from './shared/containers/App';
 
 // Utilities.
 import reduxConfigureStore from './shared/utilities/redux/reduxConfigureStore';
+import reduxPersistCrossTabSync from './shared/utilities/redux/reduxPersist/reduxPersistCrossTabSync';
 
 // Create redux store.
 const store = reduxConfigureStore(window.__INITIAL_STATE__);
@@ -25,7 +26,10 @@ window.main = () => {
       document.getElementById('root'),
       () => {
         // Only persist state when page is fully hydrated.
-        persistStore(store);
+        persistStore(store, null, () => {
+          // Sync tabs.
+          reduxPersistCrossTabSync(store);
+        });
       }
     );
   });

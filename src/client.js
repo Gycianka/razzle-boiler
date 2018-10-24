@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { hydrate } from 'react-dom';
 import { syncHistoryWithStore } from 'react-router-redux';
+import { persistStore } from 'redux-persist';
 
 // Components.
 import Routes from './shared/routes';
@@ -25,7 +26,11 @@ window.main = () => {
           history={history}
         />
       </Provider>,
-      document.getElementById('root')
+      document.getElementById('root'),
+      () => {
+        // Only persist state when page is fully hydrated.
+        persistStore(store);
+      }
     );
   });
 };

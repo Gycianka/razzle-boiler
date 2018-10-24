@@ -1,12 +1,14 @@
 import thunkMiddleware from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
+import { persistReducer } from 'redux-persist';
 
 // Reducers.
 import reducers from '../../reducers';
 
 // Utilities.
 import isBrowser from '../common/isBrowser';
+import reduxPersistConfig from './reduxPersist/reduxPersistConfig';
 
 // Constants.
 import { ENVIRONMENTS_DEVELOPMENT } from '../../constants/Settings';
@@ -25,7 +27,7 @@ const reduxConfigureStore = (initialState = {}, history) => {
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 
   const store = createStore(
-    reducers,
+    persistReducer(reduxPersistConfig, reducers),
     initialState,
     composeEnhancers(
       applyMiddleware(...middleware)

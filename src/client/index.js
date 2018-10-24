@@ -7,10 +7,10 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { persistStore } from 'redux-persist';
 
 // Components.
-import Routes from './shared/routes';
+import Routes from '../shared/routes';
 
 // Utilities.
-import reduxConfigureStore from './shared/utilities/redux/reduxConfigureStore';
+import reduxConfigureStore from '../shared/utilities/redux/reduxConfigureStore';
 
 // Create redux store.
 const store = reduxConfigureStore(window.__INITIAL_STATE__, browserHistory);
@@ -36,7 +36,7 @@ window.main = () => {
 };
 
 if (module.hot) {
-  module.hot.accept('./shared/routes/index', () => {
+  module.hot.accept('../shared/routes', () => {
     window.main();
   });
 }

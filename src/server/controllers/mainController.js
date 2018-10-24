@@ -1,39 +1,23 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { renderToString, renderToStaticMarkup } from 'react-dom/server';
+import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 
-// Server.
-import express from 'express';
-import compression from 'compression';
+// Redux.
+import reduxConfigureStore from '../../shared/utilities/redux/reduxConfigureStore';
+import { Provider } from 'react-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
 
 // React loadable.
-import stats from '../build/react-loadable.json';
 import { Capture } from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
 
 // React router.
-import getRoutes from './shared/routes';
+import getRoutes from '../../shared/routes';
 import { RouterContext, createMemoryHistory, match } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
 
 // Components.
-import Template from './server/components/Template';
+import Template from '../components/Template';
 
-// Utilities.
-import reduxConfigureStore from './shared/utilities/redux/reduxConfigureStore';
-
-const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
-
-const server = express();
-
-server.disable('x-powered-by');
-
-server.use(compression());
-server.use(express.static(process.env.RAZZLE_PUBLIC_DIR, {
-  maxAge: '30d',
-}));
-
-server.get('/*', (req, res) => {
+const mainController = (assets, stats) => (req, res) => {
   const memoryHistory = createMemoryHistory(req.url);
   const store = reduxConfigureStore({}, memoryHistory);
   const history = syncHistoryWithStore(memoryHistory, store);
@@ -86,6 +70,6 @@ server.get('/*', (req, res) => {
 
     return res.status(200).send('<!doctype html>\n' + templateMarkup);
   });
-});
+};
 
-export default server;
+export default mainController;

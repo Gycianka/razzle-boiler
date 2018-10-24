@@ -1,16 +1,47 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 
 // CSS.
+import '../assets/styles/Main.css';
 import '../assets/styles/App.css';
 
-// Containers.
-import Main from './Main';
+// Components.
+import Logo from '../components/Logo';
+import Welcome from '../components/Welcome';
+import Intro from '../components/Intro';
 
-const App = () => (
-  <Switch>
-    <Route exact path="/*" component={Main}/>
-  </Switch>
+const App = ({
+  children,
+}) => (
+  <div className="Home">
+
+    <div className="Home-header">
+      <Logo/>
+      <Welcome/>
+    </div>
+
+    <Intro/>
+
+    <ul className="Home-resources">
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/about">About</Link>
+      </li>
+      <li>
+        <Link to="/counter">Counter</Link>
+      </li>
+    </ul>
+
+    {children}
+
+  </div>
 );
+
+App.propTypes = {
+  children: PropTypes.node,
+};
 
 export default App;

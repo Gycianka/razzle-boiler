@@ -12,10 +12,10 @@ import { Capture } from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
 
 // React router.
-import { StaticRouter } from 'react-router-dom';
+import { match, RouterContext } from 'react-router';
+import getRoutes from './shared/routes/index';
 
 // Components.
-import App from './shared/containers/App';
 import Template from './server/components/Template';
 
 // Utilities.
@@ -33,24 +33,40 @@ server.use(express.static(process.env.RAZZLE_PUBLIC_DIR, {
 }));
 
 server.get('/*', (req, res) => {
-  const context = {};
-  const modules = [];
 
   const store = reduxConfigureStore();
 
-  const markup = renderToString(
-    <Capture report={moduleName => modules.push(moduleName)}>
-      <Provider store={store}>
-        <StaticRouter context={context} location={req.url}>
-          <App/>
-        </StaticRouter>
-      </Provider>
-    </Capture>
-  );
+  match({
+    routes: getRoutes(),
+    location: req.url,
+  }, (error, redirectLocation, renderProps) => {
 
-  if (context.url) {
-    res.redirect(context.url);
-  } else {
+    // If unexpected error occurred.
+    if (error) {
+      res.status(500).send(error.message);
+      return;
+    }
+
+    // If we need to redirect.
+    if (redirectLocation) {
+      res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+      return;
+    }
+
+    // If failed to match.
+    if (!renderProps) {
+      res.status(404).send('Not found');
+      return;
+    }
+
+    const modules = [];
+    const markup = renderToString(
+      <Capture report={moduleName => modules.push(moduleName)}>
+        <Provider store={store}>
+          <RouterContext {...renderProps} />
+        </Provider>
+      </Capture>
+    );
 
     // Get code split chunks.
     const chunks = getBundles(stats, modules).filter(bundle => (
@@ -66,7 +82,7 @@ server.get('/*', (req, res) => {
     );
 
     return res.status(200).send('<!doctype html>\n' + templateMarkup);
-  }
+  });
 });
 
 export default server;

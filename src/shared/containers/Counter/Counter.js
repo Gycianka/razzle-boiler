@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import {
   counterIncrement,
   counterDecrement,
-} from '../../actions/CounterActions';
+} from '../../actions/counter';
 
 class Counter extends React.PureComponent {
 

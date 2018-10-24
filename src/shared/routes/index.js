@@ -10,10 +10,10 @@ import CounterLoadable from '../containers/Counter/CounterLoadable';
 const Routes = (props) => {
   return (
     <Router history={browserHistory} {...props}>
-      <Route path="/" component={App}>
-        <Route path="" component={HomeLoadable}/>
-        <Route path="about" component={AboutLoadable}/>
-        <Route path="counter" component={CounterLoadable}/>
+      <Route path="" component={App}>
+        <Route path="/" component={HomeLoadable}/>
+        <Route path="/about" component={AboutLoadable}/>
+        <Route path="/counter" component={CounterLoadable}/>
       </Route>
     </Router>
   );

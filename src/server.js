@@ -12,8 +12,9 @@ import { Capture } from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
 
 // React router.
-import { match, RouterContext } from 'react-router';
-import getRoutes from './shared/routes/index';
+import getRoutes from './shared/routes';
+import { RouterContext, createMemoryHistory, match } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 
 // Components.
 import Template from './server/components/Template';
@@ -33,10 +34,12 @@ server.use(express.static(process.env.RAZZLE_PUBLIC_DIR, {
 }));
 
 server.get('/*', (req, res) => {
-
-  const store = reduxConfigureStore();
+  const memoryHistory = createMemoryHistory(req.url);
+  const store = reduxConfigureStore({}, memoryHistory);
+  const history = syncHistoryWithStore(memoryHistory, store);
 
   match({
+    history,
     routes: getRoutes(),
     location: req.url,
   }, (error, redirectLocation, renderProps) => {

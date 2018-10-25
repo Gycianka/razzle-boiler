@@ -14,7 +14,7 @@ const initialState = {
   count: 1,
 };
 
-const CounterReducer = handleActions({
+const counterReducer = handleActions({
   [COUNTER_INCREMENT]: (state) => ({
     ...state,
     ...counterIncrementHandler(state),
@@ -25,4 +25,4 @@ const CounterReducer = handleActions({
   }),
 }, initialState);
 
-export default CounterReducer;
+export default counterReducer;

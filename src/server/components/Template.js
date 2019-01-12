@@ -60,7 +60,7 @@ Template.propTypes = {
   assets: PropTypes.shape({
     client: PropTypes.shape({
       js: PropTypes.string.isRequired,
-      css: PropTypes.string.isRequired,
+      css: PropTypes.string,
     }),
   }),
 };

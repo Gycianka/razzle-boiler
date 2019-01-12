@@ -30,7 +30,7 @@ const reduxConfigureStore = (initialState = {}, history) => {
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 
   const store = createStore(
-    persistReducer(reduxPersistConfig, reducers),
+    isBrowser ? persistReducer(reduxPersistConfig, reducers) : reducers,
     initialState,
     composeEnhancers(
       applyMiddleware(...middleware)

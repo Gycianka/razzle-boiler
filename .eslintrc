@@ -9,6 +9,12 @@
   "plugins": [
     "react"
   ],
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "16.6.3"
+    }
+  },
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",

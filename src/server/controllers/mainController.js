@@ -64,12 +64,12 @@ const mainController = (assets, stats) => (req, res) => {
     const state = store.getState();
 
     const templateMarkup = renderToStaticMarkup(
-      Template({
-        assets,
-        chunks,
-        markup,
-        state,
-      })
+      <Template
+        markup={markup}
+        chunks={chunks}
+        assets={assets}
+        state={state}
+      />
     );
 
     return res.status(200).send('<!doctype html>\n' + templateMarkup);

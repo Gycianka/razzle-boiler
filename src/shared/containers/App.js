@@ -9,11 +9,14 @@ import '../assets/styles/App.css';
 import Logo from '../components/Logo';
 import Welcome from '../components/Welcome';
 import Intro from '../components/Intro';
+import MetaSite from '../components/meta/MetaSite';
 
 const App = ({
   children,
 }) => (
   <div className="Home">
+
+    <MetaSite/>
 
     <div className="Home-header">
       <Logo/>

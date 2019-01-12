@@ -1,8 +1,15 @@
 import React from 'react';
 
+// Components.
+import MetaPage from '../../components/meta/MetaPage';
+
 const About = () => (
   <div>
-    <h2>About page</h2>
+
+    <MetaPage title="About"/>
+
+    <h1>About page</h1>
+
   </div>
 );
 

@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+// Components.
+import MetaPage from '../../components/meta/MetaPage';
+
 // Actions.
 import {
   counterIncrement,
@@ -23,7 +26,10 @@ class Counter extends React.PureComponent {
     const { count, data } = this.props;
     return (
       <div>
-        <h2>Counter page</h2>
+
+        <MetaPage title="Counter"/>
+
+        <h1>Counter page</h1>
 
         <p>
           Clicked: {count} times

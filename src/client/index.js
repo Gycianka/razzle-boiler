@@ -13,7 +13,8 @@ import { getRoutes } from '../shared/routes';
 import reduxConfigureStore from '../shared/utilities/redux/reduxConfigureStore';
 
 // Create redux store.
-const store = reduxConfigureStore(window.__INITIAL_STATE__, browserHistory);
+const initialData = JSON.parse(document.getElementById('initial-data').getAttribute('data-json'));
+const store = reduxConfigureStore(initialData, browserHistory);
 
 // Route history.
 const history = syncHistoryWithStore(browserHistory, store);

@@ -1,15 +1,17 @@
+/* eslint-disable react/no-danger */
+
 import React from 'react';
+import PropTypes from 'prop-types';
 import { map } from 'lodash';
 
 // Constants.
-import {
-  ENVIRONMENTS_PRODUCTION,
-} from '../../shared/constants/Settings';
+import { ENVIRONMENTS_PRODUCTION } from '../../shared/constants/Settings';
 
 const Template = ({
   assets,
   markup,
   chunks,
+  state,
 }) => (
   <html lang="en">
   <head>
@@ -27,6 +29,9 @@ const Template = ({
 
   <div id="root" dangerouslySetInnerHTML={{ __html: markup }}/>
 
+  {/* Initial state. */}
+  <script id="initial-data" type="text/plain" data-json={JSON.stringify(state)}/>
+
   {process.env.NODE_ENV === ENVIRONMENTS_PRODUCTION ?
     <script src={assets.client.js}/> :
     <script src={assets.client.js} crossOrigin="true"/>
@@ -43,5 +48,21 @@ const Template = ({
   </body>
   </html>
 );
+
+Template.propTypes = {
+  state: PropTypes.object,
+  markup: PropTypes.string.isRequired,
+  chunks: PropTypes.arrayOf(
+    PropTypes.shape({
+      file: PropTypes.string.isRequired,
+    }),
+  ),
+  assets: PropTypes.shape({
+    client: PropTypes.shape({
+      js: PropTypes.string.isRequired,
+      css: PropTypes.string.isRequired,
+    }),
+  }),
+};
 
 export default Template;

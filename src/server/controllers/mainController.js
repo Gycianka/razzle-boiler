@@ -24,7 +24,7 @@ const mainController = (assets, stats) => (req, res) => {
 
   match({
     history,
-    routes: getRoutes({ store }),
+    routes: getRoutes(store),
     location: req.url,
   }, (error, redirectLocation, renderProps) => {
 
@@ -60,11 +60,15 @@ const mainController = (assets, stats) => (req, res) => {
       bundle.file.endsWith('.js')
     ));
 
+    // Grab the initial state from our Redux store.
+    const state = store.getState();
+
     const templateMarkup = renderToStaticMarkup(
       Template({
         assets,
         chunks,
         markup,
+        state,
       })
     );
 

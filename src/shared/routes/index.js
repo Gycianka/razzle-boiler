@@ -4,6 +4,9 @@ import HomeLoadable from '../containers/Home/HomeLoadable';
 import AboutLoadable from '../containers/About/AboutLoadable';
 import CounterLoadable from '../containers/Counter/CounterLoadable';
 
+// Actions.
+import { counterGetDataApi } from '../actions/counter';
+
 export const getRoutes = (store) => ({
   component: App,
   childRoutes: [
@@ -18,6 +21,11 @@ export const getRoutes = (store) => ({
     {
       path: '/counter',
       component: CounterLoadable,
+      onEnter: (nextState, replace, callback) => {
+        store.dispatch(counterGetDataApi()).then(() => {
+          callback();
+        });
+      },
     },
   ]
 });

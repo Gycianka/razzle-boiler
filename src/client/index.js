@@ -1,13 +1,13 @@
 import React from 'react';
 import Loadable from 'react-loadable';
+import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import { browserHistory } from 'react-router';
 import { hydrate } from 'react-dom';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { persistStore } from 'redux-persist';
 
 // Components.
-import Routes from '../shared/routes';
+import { getRoutes } from '../shared/routes';
 
 // Utilities.
 import reduxConfigureStore from '../shared/utilities/redux/reduxConfigureStore';
@@ -22,7 +22,8 @@ window.main = () => {
   Loadable.preloadReady().then(() => {
     hydrate(
       <Provider store={store}>
-        <Routes
+        <Router
+          routes={getRoutes(store)}
           history={history}
         />
       </Provider>,

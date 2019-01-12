@@ -11,8 +11,8 @@ import { Capture } from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
 
 // React router.
-import getRoutes from '../../shared/routes';
 import { RouterContext, createMemoryHistory, match } from 'react-router';
+import { getRoutes } from '../../shared/routes';
 
 // Components.
 import Template from '../components/Template';
@@ -24,7 +24,7 @@ const mainController = (assets, stats) => (req, res) => {
 
   match({
     history,
-    routes: getRoutes(),
+    routes: getRoutes({ store }),
     location: req.url,
   }, (error, redirectLocation, renderProps) => {
 

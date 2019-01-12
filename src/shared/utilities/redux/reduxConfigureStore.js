@@ -2,6 +2,7 @@ import thunkMiddleware from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import { persistReducer } from 'redux-persist';
+import { apiMiddleware } from 'redux-api-middleware';
 
 // Reducers.
 import reducers from '../../reducers';
@@ -15,8 +16,9 @@ import { ENVIRONMENTS_DEVELOPMENT } from '../../constants/Settings';
 
 const reduxConfigureStore = (initialState = {}, history) => {
   const middleware = [
-    thunkMiddleware,
+    apiMiddleware,
     routerMiddleware(history),
+    thunkMiddleware,
   ];
 
   // Using redux dev tools only on dev env.

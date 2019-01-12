@@ -8,7 +8,7 @@ import counterDecrementHandler from './handlers/counterDecrementHandler';
 import {
   COUNTER_INCREMENT,
   COUNTER_DECREMENT,
-} from '../../constants/CounterReducerActions';
+} from '../../constants/Counter';
 
 const initialState = {
   count: 1,

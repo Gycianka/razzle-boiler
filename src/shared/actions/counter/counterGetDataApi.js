@@ -14,7 +14,7 @@ import {
 const counterGetDataApi = () => (dispatch) => (
   dispatch({
     [RSAA]: {
-      endpoint: 'https://jsonplaceholder.typicode.com/posts/1',
+      endpoint: '/api/posts/1',
       method: METHOD_GET,
       headers: HEADER_APPLICATION_JSON,
       types: [

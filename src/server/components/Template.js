@@ -1,8 +1,12 @@
 /* eslint-disable react/no-danger */
 
 import React from 'react';
+import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { map } from 'lodash';
+
+// Components.
+import MetaDefault from './meta/MetaDefault';
 
 // Constants.
 import { ENVIRONMENTS_PRODUCTION } from '../../shared/constants/Settings';
@@ -12,42 +16,51 @@ const Template = ({
   markup,
   chunks,
   state,
-}) => (
-  <html lang="en">
-  <head>
-    <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
-    <meta charSet='utf-8'/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+}) => {
 
-    <title>Welcome to Razzle Boilerplate</title>
+  // Helmet stuff.
+  const helmet = Helmet.renderStatic();
+  const htmlAttribute = helmet.htmlAttributes.toComponent();
+  const bodyAttribute = helmet.bodyAttributes.toComponent();
 
-    {assets.client.css && <link rel="stylesheet" href={assets.client.css}/>}
+  return (
+    <html lang="en" {...htmlAttribute}>
+    <head>
 
-  </head>
+      {helmet.title.toComponent()}
+      {helmet.meta.toComponent()}
+      {helmet.link.toComponent()}
 
-  <body>
+      <MetaDefault/>
 
-  <div id="root" dangerouslySetInnerHTML={{ __html: markup }}/>
+      {assets.client.css && <link rel="stylesheet" href={assets.client.css}/>}
 
-  {/* Initial state. */}
-  <script id="initial-data" type="text/plain" data-json={JSON.stringify(state)}/>
+    </head>
 
-  {process.env.NODE_ENV === ENVIRONMENTS_PRODUCTION ?
-    <script src={assets.client.js}/> :
-    <script src={assets.client.js} crossOrigin="true"/>
-  }
+    <body {...bodyAttribute}>
 
-  {map(chunks, (chunk, key) => (
-    process.env.NODE_ENV === ENVIRONMENTS_PRODUCTION ?
-      <script key={key} src={chunk.file}/> :
-      <script key={key} src={`http://${process.env.HOST}:${parseInt(process.env.PORT, 10) + 1}/${chunk.file}`}/>
-  ))}
+    <div id="root" dangerouslySetInnerHTML={{ __html: markup }}/>
 
-  <script>window.main();</script>
+    {/* Initial state. */}
+    <script id="initial-data" type="text/plain" data-json={JSON.stringify(state)}/>
 
-  </body>
-  </html>
-);
+    {process.env.NODE_ENV === ENVIRONMENTS_PRODUCTION ?
+      <script src={assets.client.js}/> :
+      <script src={assets.client.js} crossOrigin="true"/>
+    }
+
+    {map(chunks, (chunk, key) => (
+      process.env.NODE_ENV === ENVIRONMENTS_PRODUCTION ?
+        <script key={key} src={chunk.file}/> :
+        <script key={key} src={`http://${process.env.HOST}:${parseInt(process.env.PORT, 10) + 1}/${chunk.file}`}/>
+    ))}
+
+    <script>window.main();</script>
+
+    </body>
+    </html>
+  );
+};
 
 Template.propTypes = {
   state: PropTypes.object,

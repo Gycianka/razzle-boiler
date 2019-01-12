@@ -1,8 +1,8 @@
 // Containers.
 import App from '../containers/App';
-import HomeLoadable from '../containers/Home/HomeLoadable';
-import AboutLoadable from '../containers/About/AboutLoadable';
-import CounterLoadable from '../containers/Counter/CounterLoadable';
+import HomeLoadable from '../containers/home/HomeLoadable';
+import AboutLoadable from '../containers/about/AboutLoadable';
+import CounterLoadable from '../containers/counter/CounterLoadable';
 
 // Actions.
 import { counterGetDataApi } from '../actions/counter';

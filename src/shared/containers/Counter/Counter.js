@@ -7,9 +7,14 @@ import { bindActionCreators } from 'redux';
 import {
   counterIncrement,
   counterDecrement,
+  counterGetDataApi,
 } from '../../actions/counter';
 
 class Counter extends React.PureComponent {
+
+  componentDidMount() {
+    this.props.actions.counterGetDataApi();
+  }
 
   onClickIncrement = () => {
     this.props.actions.counterIncrement();
@@ -20,7 +25,7 @@ class Counter extends React.PureComponent {
   };
 
   render() {
-    const { count } = this.props;
+    const { count, data } = this.props;
     return (
       <div>
         <h2>Counter page</h2>
@@ -33,6 +38,19 @@ class Counter extends React.PureComponent {
           <button onClick={this.onClickDecrement}>-</button>
         </p>
 
+
+        <div>
+          <h4>Api data:</h4>
+
+          {data &&
+          <div>
+            <p>{data.title}</p>
+            <p>{data.body}</p>
+          </div>
+          }
+
+        </div>
+
       </div>
     );
   }
@@ -40,20 +58,24 @@ class Counter extends React.PureComponent {
 
 Counter.propTypes = {
   count: PropTypes.number.isRequired,
+  data: PropTypes.object,
   actions: PropTypes.shape({
     counterIncrement: PropTypes.func.isRequired,
     counterDecrement: PropTypes.func.isRequired,
+    counterGetDataApi: PropTypes.func.isRequired,
   }),
 };
 
-const mapStateToProps = ({ counter: { count } }) => ({
+const mapStateToProps = ({ counter: { count, apiData } }) => ({
   count,
+  data: apiData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
     counterIncrement,
     counterDecrement,
+    counterGetDataApi,
   }, dispatch),
 });
 

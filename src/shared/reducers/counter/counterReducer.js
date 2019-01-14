@@ -17,11 +17,21 @@ import {
   COUNTER_GET_DATA_API_FAILURE,
 } from '../../constants/Counter';
 
+/**
+ * Initial reducer state.
+ *
+ * @type {Object}
+ */
 const initialState = {
   status: transformApiInitialStatus,
   count: 1,
 };
 
+/**
+ * Action handler.
+ *
+ * @type {Function}
+ */
 const counterReducer = handleActions({
   [COUNTER_INCREMENT]: (state) => ({
     ...state,

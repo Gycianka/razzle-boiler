@@ -15,6 +15,17 @@ import reduxPersistConfig from './reduxPersist/reduxPersistConfig';
 // Constants.
 import { ENVIRONMENTS_DEVELOPMENT } from '../../constants/Settings';
 
+/**
+ * Config redux store.
+ *
+ * @param {Object} initialState
+ *  Initial redux state.
+ * @param {Object} history
+ *  Route history object.
+ *
+ * @return {Object}
+ *  Redux store.
+ */
 const reduxConfigureStore = (initialState = {}, history) => {
   const middleware = [
     apiMiddleware,
@@ -37,8 +48,8 @@ const reduxConfigureStore = (initialState = {}, history) => {
     )
   );
 
+  // Enable Webpack hot module replacement for reducers.
   if (module.hot) {
-    // Enable Webpack hot module replacement for reducers.
     module.hot.accept('../../reducers', () => {
       const nextRootReducer = require('../../reducers').default;
       store.replaceReducer(nextRootReducer);

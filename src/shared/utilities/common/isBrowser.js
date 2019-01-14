@@ -1,4 +1,8 @@
-// Check if windows object is defined.
+/**
+ * Check if windows object is defined.
+ *
+ * @type {boolean}
+ */
 const isBrowser = !!(
   typeof window !== 'undefined' &&
   window.document &&

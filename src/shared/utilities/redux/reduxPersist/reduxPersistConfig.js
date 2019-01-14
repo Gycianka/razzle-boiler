@@ -10,6 +10,11 @@ import counterTransform from './transform/counterTransform';
 // Constants.
 import { REDUX_PERSIST_KEY } from '../../../constants/Settings';
 
+/**
+ * Redux persist migration instructions by app version.
+ *
+ * @type {Object}
+ */
 const migrations = {
   1: (state) => ({
     ...state,
@@ -17,6 +22,11 @@ const migrations = {
   }),
 };
 
+/**
+ * Redux persist configs.
+ *
+ * @type {Object}
+ */
 const reduxPersistConfig = {
   version: 1,
   key: REDUX_PERSIST_KEY,

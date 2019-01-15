@@ -6,10 +6,10 @@ import {
   HEADER_APPLICATION_JSON,
 } from '../../constants/Api';
 import {
-  COUNTER_GET_DATA_API_REQUEST,
-  COUNTER_GET_DATA_API_SUCCESS,
-  COUNTER_GET_DATA_API_FAILURE,
-} from '../../constants/Counter';
+  POSTS_GET_POST_API_REQUEST,
+  POSTS_GET_POST_API_SUCCESS,
+  POSTS_GET_POST_API_FAILURE,
+} from '../../constants/Posts';
 
 const counterGetDataApi = () => (dispatch) => (
   dispatch({
@@ -18,12 +18,12 @@ const counterGetDataApi = () => (dispatch) => (
       method: METHOD_GET,
       headers: HEADER_APPLICATION_JSON,
       types: [
-        COUNTER_GET_DATA_API_REQUEST,
-        COUNTER_GET_DATA_API_SUCCESS,
-        COUNTER_GET_DATA_API_FAILURE,
+        POSTS_GET_POST_API_REQUEST,
+        POSTS_GET_POST_API_SUCCESS,
+        POSTS_GET_POST_API_FAILURE,
       ],
-      bailout: ({ counter: { apiData } }) => (
-        apiData !== undefined
+      bailout: () => (
+        false // @TODO
       ),
     },
   })

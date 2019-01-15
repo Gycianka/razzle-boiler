@@ -2,7 +2,7 @@
 import transformApiStatusSuccess from '../../../utilities/transform/api/transformApiStatusSuccess';
 
 /**
- * Counter get api success handler.
+ * Posts get post api success handler.
  *
  * @param {Object} state
  *  State object.
@@ -12,9 +12,9 @@ import transformApiStatusSuccess from '../../../utilities/transform/api/transfor
  * @return {Object}
  *  Updated state.
  */
-const counterGetDataApiSuccessHandler = (state, { payload }) => ({
+const postsGetPostApiSuccessHandler = (state, { payload }) => ({
   apiData: payload,
   status: transformApiStatusSuccess(),
 });
 
-export default counterGetDataApiSuccessHandler;
+export default postsGetPostApiSuccessHandler;

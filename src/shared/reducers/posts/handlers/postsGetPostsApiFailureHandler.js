@@ -2,7 +2,7 @@
 import transformApiStatusFailure from '../../../utilities/transform/api/transformApiStatusFailure';
 
 /**
- * Counter get api failure handler.
+ * Posts get posts api failure handler.
  *
  * @param {Object} state
  *  State object.
@@ -12,8 +12,8 @@ import transformApiStatusFailure from '../../../utilities/transform/api/transfor
  * @return {Object}
  *  Updated state.
  */
-const counterGetDataApiFailureHandler = (state, action) => ({
+const postsGetPostsApiFailureHandler = (state, action) => ({
   status: transformApiStatusFailure(action),
 });
 
-export default counterGetDataApiFailureHandler;
+export default postsGetPostsApiFailureHandler;

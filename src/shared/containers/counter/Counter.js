@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -23,7 +24,7 @@ class Counter extends React.PureComponent {
   };
 
   render() {
-    const { count, data } = this.props;
+    const { count } = this.props;
     return (
       <div>
 
@@ -39,16 +40,6 @@ class Counter extends React.PureComponent {
           <button onClick={this.onClickDecrement}>-</button>
         </p>
 
-        {data &&
-        <article>
-          <h4>Api data:</h4>
-
-          <p>{data.title}</p>
-          <p>{data.body}</p>
-
-        </article>
-        }
-
       </div>
     );
   }
@@ -56,16 +47,14 @@ class Counter extends React.PureComponent {
 
 Counter.propTypes = {
   count: PropTypes.number.isRequired,
-  data: PropTypes.object,
   actions: PropTypes.shape({
     counterIncrement: PropTypes.func.isRequired,
     counterDecrement: PropTypes.func.isRequired,
   }),
 };
 
-const mapStateToProps = ({ counter: { count, apiData } }) => ({
+const mapStateToProps = ({ counter: { count } }) => ({
   count,
-  data: apiData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -75,4 +64,6 @@ const mapDispatchToProps = (dispatch) => ({
   }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+)(Counter);

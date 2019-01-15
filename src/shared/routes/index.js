@@ -4,9 +4,10 @@ import HomeLoadable from '../containers/home/HomeLoadable';
 import AboutLoadable from '../containers/about/AboutLoadable';
 import CounterLoadable from '../containers/counter/CounterLoadable';
 import HtmlLoadable from '../containers/html/HtmlLoadable';
-// Actions.
+import PostsLoadable from '../containers/posts/PostsLoadable';
 
-import { counterGetDataApi } from '../actions/counter';
+// Actions.
+import { postsGetPostsApi } from '../actions/posts';
 
 /**
  * Get routes.
@@ -33,15 +34,19 @@ export const getRoutes = (store) => ({
       component: HtmlLoadable,
     },
     {
-      path: '/counter',
-      component: CounterLoadable,
+      path: '/posts',
+      component: PostsLoadable,
       onEnter: (nextState, replace, callback) => {
-        store.dispatch(counterGetDataApi()).then(() => {
+        store.dispatch(postsGetPostsApi()).then(() => {
           callback();
         }).catch(() => {
           callback();
         });
       },
+    },
+    {
+      path: '/counter',
+      component: CounterLoadable,
     },
   ]
 });

@@ -2,7 +2,7 @@
 import transformApiStatusRequest from '../../../utilities/transform/api/transformApiStatusRequest';
 
 /**
- * Counter get api request handler.
+ * Posts get post api request handler.
  *
  * @param {Object} state
  *  State object.
@@ -12,8 +12,8 @@ import transformApiStatusRequest from '../../../utilities/transform/api/transfor
  * @return {Object}
  *  Updated state.
  */
-const counterGetDataApiRequestHandler = (state, action) => ({
+const postsGetPostApiRequestHandler = (state, action) => ({
   status: transformApiStatusRequest(action),
 });
 
-export default counterGetDataApiRequestHandler;
+export default postsGetPostApiRequestHandler;

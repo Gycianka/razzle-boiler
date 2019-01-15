@@ -38,6 +38,9 @@ const App = ({
       <li>
         <Link to="/html">Html</Link>
       </li>
+      <li>
+        <Link to="/posts">Posts</Link>
+      </li>
     </ul>
 
     {children}

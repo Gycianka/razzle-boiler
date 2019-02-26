@@ -27,7 +27,7 @@
     "react-redux": "5.0.7",
     "react-router": "3.2.1",
     "react-router-redux": "4.0.8",
-    "recompose": "^0.30.0",
+    "recompose": "0.30.0",
     "redux": "4.0.1",
     "redux-actions": "2.6.3",
     "redux-api-middleware": "2.3.0",
@@ -36,8 +36,18 @@
     "url-assembler": "2.0.0"
   },
   "devDependencies": {
-    "razzle": "2.4.1",
+    "autoprefixer": "9.4.9",
     "babel-plugin-transform-imports": "1.5.1",
-    "webpack": "4.28.4"
+    "normalize.css": "8.0.1",
+    "postcss-calc": "7.0.1",
+    "postcss-flexbugs-fixes": "4.1.0",
+    "postcss-inline-svg": "3.1.1",
+    "razzle": "2.4.1",
+    "razzle-plugin-scss": "2.4.1",
+    "stylelint": "8.4.0",
+    "stylelint-scss": "3.5.4",
+    "stylelint-webpack-plugin": "0.10.5",
+    "webpack": "4.28.4",
+    "webpack-bundle-analyzer": "3.0.4"
   }
 }

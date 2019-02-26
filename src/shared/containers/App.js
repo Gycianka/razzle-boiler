@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 // CSS.
-import '../assets/styles/App.css';
+import '../assets/styles/App.scss';
 
 // Components.
 import Logo from '../components/Logo';

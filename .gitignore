@@ -17,3 +17,4 @@ build
 npm-debug.log
 yarn.lock
 newrelic_agent.log
+.stylelintcache

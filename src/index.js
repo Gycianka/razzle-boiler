@@ -3,8 +3,11 @@
 import express from 'express';
 import Loadable from 'react-loadable';
 
+// Constants
+import { settings } from './server';
+
 // Server port.
-const port = process.env.PORT || 3000;
+const { port } = settings;
 
 // Replaceable server instance.
 let app = require('./server').default;

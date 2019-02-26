@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 // React loadable.
+import stats from '../../../build/react-loadable.json';
 import { Capture } from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
 
@@ -22,15 +23,14 @@ import errorResponse from '../utilities/errorResponse';
 import getBaseUrl from '../utilities/getBaseUrl';
 import prefetchComponentData from '../utilities/prefetchComponentData';
 
-// Constants.
-import { API_BASE_URL } from '../contants/Settings';
+const mainController = ({
+  assets,
+  settings,
+}) => (req, res) => {
 
-const mainController = (assets, stats) => (req, res) => {
-
-  // @TODO.
   const initialState = {
     app: {
-      apiBaseUrl: API_BASE_URL,
+      ...settings,
       hostname: getBaseUrl(req),
     },
   };

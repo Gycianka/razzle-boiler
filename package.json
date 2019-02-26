@@ -36,7 +36,8 @@
     "url-assembler": "2.0.0"
   },
   "devDependencies": {
-    "razzle": "2.4.0",
-    "babel-plugin-transform-imports": "1.5.1"
+    "razzle": "2.4.1",
+    "babel-plugin-transform-imports": "1.5.1",
+    "webpack": "4.28.4"
   }
 }

@@ -12,7 +12,7 @@ import { getBundles } from 'react-loadable/webpack';
 
 // React router.
 import { RouterContext, createMemoryHistory, match } from 'react-router';
-import { getRoutes } from '../../shared/routes';
+import getRoutes from '../../shared/routes/utilities/getRoutes';
 
 // Components.
 import Template from '../components/Template';

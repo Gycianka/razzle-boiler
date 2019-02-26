@@ -1,13 +1,13 @@
 import React from 'react';
 import Loadable from 'react-loadable';
-import { Router, browserHistory } from 'react-router';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
+import { browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { hydrate } from 'react-dom';
-import { syncHistoryWithStore } from 'react-router-redux';
-import { persistStore } from 'redux-persist';
 
 // Components.
-import { getRoutes } from '../shared/routes';
+import Routes from '../shared/routes/Routes';
 
 // Utilities.
 import reduxConfigureStore from '../shared/utilities/redux/reduxConfigureStore';
@@ -15,30 +15,28 @@ import reduxConfigureStore from '../shared/utilities/redux/reduxConfigureStore';
 // Create redux store.
 const initialData = JSON.parse(document.getElementById('initial-data').getAttribute('data-json'));
 const store = reduxConfigureStore(initialData, browserHistory);
-
-// Route history.
-const history = syncHistoryWithStore(browserHistory, store);
+const persistor = persistStore(store);
 
 window.main = () => {
-  Loadable.preloadReady().then(() => {
-    hydrate(
-      <Provider store={store}>
-        <Router
-          routes={getRoutes(store)}
-          history={history}
-        />
-      </Provider>,
-      document.getElementById('root'),
-      () => {
-        // Only persist state when page is fully hydrated.
-        persistStore(store);
-      }
-    );
-  });
+  render(Routes);
 };
 
 if (module.hot) {
-  module.hot.accept('../shared/routes', () => {
-    window.main();
+  module.hot.accept('../shared/routes/Routes', () => {
+    const newRoutes = require('../shared/routes/Routes').default;
+    render(newRoutes);
   });
 }
+
+const render = (RoutesComponent) => {
+  Loadable.preloadReady().then(() => {
+    hydrate(
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <RoutesComponent store={store}/>
+        </PersistGate>
+      </Provider>,
+      document.getElementById('root')
+    );
+  });
+};

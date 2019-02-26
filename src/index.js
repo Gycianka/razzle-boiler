@@ -1,23 +1,36 @@
-import http from 'http';
+/* eslint-disable no-console */
+
+import express from 'express';
 import Loadable from 'react-loadable';
-import app from './server';
 
-const server = http.createServer(app);
+// Server port.
+const port = process.env.PORT || 3000;
 
-let currentApp = app;
-
-Loadable.preloadAll().then(() => {
-  server.listen(process.env.PORT || 3000);
-});
+// Replaceable server instance.
+let app = require('./server').default;
 
 if (module.hot) {
-  console.log('✅  Server-side HMR Enabled!');
-
   module.hot.accept('./server', () => {
     console.log('🔁  HMR Reloading `./server`...');
-    server.removeListener('request', currentApp);
-    const newApp = require('./server').default;
-    server.on('request', newApp);
-    currentApp = newApp;
+    try {
+      app = require('./server').default;
+    } catch (error) {
+      console.error(error);
+    }
   });
+
+  console.info('✅  Server-side HMR Enabled!');
 }
+
+export default Loadable
+  .preloadAll()
+  .then(() => express()
+    .use((req, res) => app.handle(req, res))
+    .listen(port, (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      console.log(`> Started on port ${port}`);
+    }));

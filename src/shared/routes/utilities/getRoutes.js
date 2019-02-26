@@ -1,13 +1,13 @@
 // Containers.
-import App from '../containers/App';
-import HomeLoadable from '../containers/home/HomeLoadable';
-import AboutLoadable from '../containers/about/AboutLoadable';
-import CounterLoadable from '../containers/counter/CounterLoadable';
-import HtmlLoadable from '../containers/html/HtmlLoadable';
-import PostsLoadable from '../containers/posts/PostsLoadable';
+import App from '../../containers/App';
+import HomeLoadable from '../../containers/home/HomeLoadable';
+import AboutLoadable from '../../containers/about/AboutLoadable';
+import CounterLoadable from '../../containers/counter/CounterLoadable';
+import HtmlLoadable from '../../containers/html/HtmlLoadable';
+import PostsLoadable from '../../containers/posts/PostsLoadable';
 
 // Actions.
-import { postsGetPostsApi } from '../actions/posts';
+import { postsGetPostsApi } from '../../actions/posts';
 
 /**
  * Get routes.
@@ -18,7 +18,7 @@ import { postsGetPostsApi } from '../actions/posts';
  * @return {Object}
  *  Routes.
  */
-export const getRoutes = (store) => ({
+const getRoutes = (store) => ({
   component: App,
   childRoutes: [
     {
@@ -50,3 +50,5 @@ export const getRoutes = (store) => ({
     },
   ]
 });
+
+export default getRoutes;

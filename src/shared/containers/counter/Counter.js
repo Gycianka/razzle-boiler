@@ -7,10 +7,8 @@ import { bindActionCreators, compose } from 'redux';
 import MetaPage from '../../components/meta/MetaPage';
 
 // Actions.
-import {
-  counterIncrement,
-  counterDecrement,
-} from '../../actions/counter';
+import counterIncrement from '../../actions/counter/counterIncrement';
+import counterDecrement from '../../actions/counter/counterDecrement';
 
 class Counter extends React.PureComponent {
 

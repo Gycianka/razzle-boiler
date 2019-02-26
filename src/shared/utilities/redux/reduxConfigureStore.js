@@ -15,6 +15,9 @@ import reduxPersistConfig from './reduxPersist/reduxPersistConfig';
 // Constants.
 import { ENVIRONMENTS_DEVELOPMENT } from '../../constants/Settings';
 
+// Middleware.
+import requestMiddleware from './middleware/requestMiddleware';
+
 /**
  * Config redux store.
  *
@@ -28,6 +31,7 @@ import { ENVIRONMENTS_DEVELOPMENT } from '../../constants/Settings';
  */
 const reduxConfigureStore = (initialState = {}, history) => {
   const middleware = [
+    requestMiddleware,
     apiMiddleware,
     routerMiddleware(history),
     thunkMiddleware,

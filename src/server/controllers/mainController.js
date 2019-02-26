@@ -11,15 +11,33 @@ import { Capture } from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
 
 // React router.
-import { RouterContext, createMemoryHistory, match } from 'react-router';
 import getRoutes from '../../shared/routes/utilities/getRoutes';
+import { RouterContext, createMemoryHistory, match } from 'react-router';
 
 // Components.
 import Template from '../components/Template';
 
+// Utilities.
+import errorResponse from '../utilities/errorResponse';
+import getBaseUrl from '../utilities/getBaseUrl';
+import prefetchComponentData from '../utilities/prefetchComponentData';
+
+// Constants.
+import { API_BASE_URL } from '../contants/Settings';
+
 const mainController = (assets, stats) => (req, res) => {
+
+  // @TODO.
+  const initialState = {
+    app: {
+      apiBaseUrl: API_BASE_URL,
+      hostname: getBaseUrl(req),
+    },
+  };
+
+  // Redux store.
   const memoryHistory = createMemoryHistory(req.url);
-  const store = reduxConfigureStore({}, memoryHistory);
+  const store = reduxConfigureStore(initialState, memoryHistory);
   const history = syncHistoryWithStore(memoryHistory, store);
 
   match({
@@ -30,7 +48,7 @@ const mainController = (assets, stats) => (req, res) => {
 
     // If unexpected error occurred.
     if (error) {
-      res.status(500).send(error.message);
+      errorResponse(res, error.message);
       return;
     }
 
@@ -42,37 +60,46 @@ const mainController = (assets, stats) => (req, res) => {
 
     // If failed to match.
     if (!renderProps) {
-      res.status(404).send('Not found');
+      errorResponse(res, 'Missing props in match rendering.');
       return;
     }
 
-    const modules = [];
-    const markup = renderToString(
-      <Capture report={moduleName => modules.push(moduleName)}>
-        <Provider store={store}>
-          <RouterContext {...renderProps} />
-        </Provider>
-      </Capture>
-    );
+    prefetchComponentData({
+      dispatch: store.dispatch,
+      components: renderProps.components,
+      params: renderProps.params,
+    }).then(() => {
 
-    // Get code split chunks.
-    const chunks = getBundles(stats, modules).filter(bundle => (
-      bundle.file.endsWith('.js')
-    ));
+      const modules = [];
+      const markup = renderToString(
+        <Capture report={moduleName => modules.push(moduleName)}>
+          <Provider store={store}>
+            <RouterContext {...renderProps} />
+          </Provider>
+        </Capture>
+      );
 
-    // Grab the initial state from our Redux store.
-    const state = store.getState();
+      // Get code split chunks.
+      const chunks = getBundles(stats, modules).filter(bundle => (
+        bundle.file.endsWith('.js')
+      ));
 
-    const templateMarkup = renderToStaticMarkup(
-      <Template
-        markup={markup}
-        chunks={chunks}
-        assets={assets}
-        state={state}
-      />
-    );
+      // Grab the initial state from our Redux store.
+      const state = store.getState();
 
-    return res.status(200).send('<!doctype html>\n' + templateMarkup);
+      const templateMarkup = renderToStaticMarkup(
+        <Template
+          markup={markup}
+          chunks={chunks}
+          assets={assets}
+          state={state}
+        />
+      );
+
+      res.send('<!doctype html>\n' + templateMarkup);
+    }).catch((error) => {
+      errorResponse(res, error.message);
+    });
   });
 };
 

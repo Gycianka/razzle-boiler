@@ -20,6 +20,7 @@ const postsGetPostsApiSuccessHandler = (state, { payload }) => ({
     ...keyBy(payload, 'id'),
   },
   status: transformApiStatusSuccess(),
+  hasAllItems: true,
 });
 
 export default postsGetPostsApiSuccessHandler;

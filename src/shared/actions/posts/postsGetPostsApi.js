@@ -22,9 +22,7 @@ const postsGetPostsApi = () => (dispatch) => (
         POSTS_GET_POSTS_API_SUCCESS,
         POSTS_GET_POSTS_API_FAILURE,
       ],
-      bailout: () => (
-        false // @TODO
-      ),
+      bailout: ({ posts: { hasAllItems } }) => (hasAllItems),
     },
   })
 );

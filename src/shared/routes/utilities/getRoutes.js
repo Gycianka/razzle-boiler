@@ -7,7 +7,7 @@ import HtmlLoadable from '../../containers/html/HtmlLoadable';
 import PostsLoadable from '../../containers/posts/PostsLoadable';
 
 // Actions.
-import { postsGetPostsApi } from '../../actions/posts';
+import postsGetPostsApi from '../../actions/posts/postsGetPostsApi';
 
 /**
  * Get routes.

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-// CSS.
+// Styles.
 import '../assets/styles/App.scss';
 
 // Components.
@@ -11,42 +11,51 @@ import Welcome from '../components/Welcome';
 import Intro from '../components/Intro';
 import MetaSite from '../components/meta/MetaSite';
 
-const App = ({
-  children,
-}) => (
-  <div className="Home">
+// Actions.
+import postsGetPostsApi from '../actions/posts/postsGetPostsApi';
 
-    <MetaSite/>
+class App extends React.PureComponent {
+  static prefetch = [
+    ({ dispatch }) => (dispatch(postsGetPostsApi())),
+  ];
 
-    <div className="Home-header">
-      <Logo/>
-      <Welcome/>
-    </div>
+  render() {
+    return (
+      <div className="Home">
 
-    <Intro/>
+        <MetaSite/>
 
-    <ul className="Home-resources">
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <li>
-        <Link to="/about">About</Link>
-      </li>
-      <li>
-        <Link to="/counter">Counter</Link>
-      </li>
-      <li>
-        <Link to="/html">Html</Link>
-      </li>
-      <li>
-        <Link to="/posts">Posts</Link>
-      </li>
-    </ul>
+        <div className="Home-header">
+          <Logo/>
+          <Welcome/>
+        </div>
 
-    {children}
+        <Intro/>
 
-  </div>
-);
+        <ul className="Home-resources">
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+          <li>
+            <Link to="/counter">Counter</Link>
+          </li>
+          <li>
+            <Link to="/html">Html</Link>
+          </li>
+          <li>
+            <Link to="/posts">Posts</Link>
+          </li>
+        </ul>
+
+        {this.props.children}
+
+      </div>
+    );
+  }
+}
 
 App.propTypes = {
   children: PropTypes.node,

@@ -80,9 +80,9 @@ const mainController = ({
       );
 
       // Get code split chunks.
-      const chunks = getBundles(stats, modules).filter(bundle => (
-        bundle.file.endsWith('.js')
-      ));
+      const bundles = getBundles(stats, modules);
+      const scriptChunks = bundles.filter(bundle => bundle.file.endsWith('.js'));
+      const stylesChunks = bundles.filter(bundle => bundle.file.endsWith('.css'));
 
       // Grab the initial state from our Redux store.
       const state = store.getState();
@@ -90,9 +90,10 @@ const mainController = ({
       const templateMarkup = renderToStaticMarkup(
         <Template
           markup={markup}
-          chunks={chunks}
           assets={assets}
           state={state}
+          scriptChunks={scriptChunks}
+          stylesChunks={stylesChunks}
         />
       );
 

@@ -6,8 +6,8 @@ import { reduce } from 'lodash';
  *
  * @param {string} path
  *  Request path.
- * @param {Object} store
- *  Redux store.
+ * @param {function} dispatch
+ *  Store dispatch function.
  * @param {Array} routes
  *  Routes.
  *
@@ -16,7 +16,7 @@ import { reduce } from 'lodash';
  */
 const prefetchRouteData = ({
   path,
-  store,
+  dispatch,
   routes,
 }) => (
   reduce(routes, (result, route) => {
@@ -25,10 +25,10 @@ const prefetchRouteData = ({
       ...result,
       ...prefetchRouteData({
         path,
-        store,
+        dispatch,
         routes: route.routes,
       }),
-      ...(match && route.prefetch ? [route.prefetch({ store, match })] : []),
+      ...(match && route.prefetch ? [route.prefetch({ dispatch, match })] : []),
     ];
   }, [])
 );

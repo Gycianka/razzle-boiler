@@ -38,9 +38,9 @@ const mainController = ({
 
   // Get all prefetch promises.
   const promises = prefetchRouteData({
-    store,
     routes,
     path: req.path,
+    dispatch: store.dispatch,
   });
 
   // Wait for them to finish first.

@@ -38,7 +38,7 @@ const routes = [
         path: '/posts',
         exact: true,
         component: PostsLoadable,
-        prefetch: ({ store: { dispatch } }) => (
+        prefetch: ({ dispatch }) => (
           dispatch(postsGetPostsApi())
         ),
       },

@@ -1,8 +1,5 @@
-import loadable from 'react-loadable';
+import loadable from "@loadable/component";
 
-const AboutLoadable = loadable({
-  loader: () => import(/* webpackChunkName: "about" */ './About'),
-  loading: () => null,
-});
+const AboutLoadable = loadable(() => import('./About'));
 
 export default AboutLoadable;

@@ -1,8 +1,5 @@
-import loadable from 'react-loadable';
+import loadable from '@loadable/component'
 
-const HomeLoadable = loadable({
-  loader: () => import(/* webpackChunkName: "home" */ './Home'),
-  loading: () => null,
-});
+const HomeLoadable = loadable(() => import('./Home'));
 
 export default HomeLoadable;

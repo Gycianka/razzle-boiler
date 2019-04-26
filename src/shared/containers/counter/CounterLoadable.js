@@ -1,8 +1,5 @@
-import loadable from 'react-loadable';
+import loadable from '@loadable/component'
 
-const CounterLoadable = loadable({
-  loader: () => import(/* webpackChunkName: "counter" */ './Counter'),
-  loading: () => null,
-});
+const CounterLoadable = loadable(() => import('./Counter'));
 
 export default CounterLoadable;

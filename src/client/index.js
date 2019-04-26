@@ -1,42 +1,41 @@
 import React from 'react';
-import Loadable from 'react-loadable';
+import { loadableReady } from '@loadable/component'
 import { PersistGate } from 'redux-persist/integration/react';
+import { BrowserRouter } from 'react-router-dom';
 import { persistStore } from 'redux-persist';
-import { browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { hydrate } from 'react-dom';
 
 // Components.
-import Routes from '../shared/routes/Routes';
+import App from '../shared/containers/App';
 
 // Utilities.
 import reduxConfigureStore from '../shared/utilities/redux/reduxConfigureStore';
 
 // Create redux store.
 const initialData = JSON.parse(document.getElementById('initial-data').getAttribute('data-json'));
-const store = reduxConfigureStore(initialData, browserHistory);
+const store = reduxConfigureStore(initialData);
 const persistor = persistStore(store);
 
-window.main = () => {
-  render(Routes);
+const render = (Component) => {
+  hydrate(
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <Component/>
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>,
+    document.getElementById('root')
+  );
 };
+
+loadableReady(() => {
+  render(App)
+});
 
 if (module.hot) {
-  module.hot.accept('../shared/routes/Routes', () => {
-    const newRoutes = require('../shared/routes/Routes').default;
-    render(newRoutes);
+  module.hot.accept('../shared/containers/App', () => {
+    render(require('../shared/containers/App').default);
   });
 }
-
-const render = (RoutesComponent) => {
-  Loadable.preloadReady().then(() => {
-    hydrate(
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <RoutesComponent store={store}/>
-        </PersistGate>
-      </Provider>,
-      document.getElementById('root')
-    );
-  });
-};

@@ -1,8 +1,5 @@
-import loadable from 'react-loadable';
+import loadable from '@loadable/component'
 
-const HtmlLoadable = loadable({
-  loader: () => import(/* webpackChunkName: "html" */ './Html'),
-  loading: () => null,
-});
+const HtmlLoadable = loadable(() => import('./Html'));
 
 export default HtmlLoadable;

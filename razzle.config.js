@@ -1,9 +1,9 @@
 const paths = require('razzle/config/paths');
 
 // Other plugins.
-const { ReactLoadablePlugin } = require('react-loadable/webpack');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const LoadablePlugin = require('@loadable/webpack-plugin');
 
 // Post CSS plugins.
 const autoprefixer = require('autoprefixer');
@@ -48,13 +48,28 @@ module.exports = {
       );
     }
 
-    // Add react loadable support.
+    // Add loadable support.
     if (isWeb) {
       appConfig.plugins.push(
-        new ReactLoadablePlugin({
-          filename: './build/react-loadable.json',
+        new LoadablePlugin({
+          outputAsset: false,
+          writeToDisk: {
+            filename: paths.appBuild,
+          },
         })
       );
+
+      // Chunk names.
+      appConfig.output.filename = dev ? 'static/js/[name].js' : 'static/js/[name].[chunkhash:8].js';
+
+      // Optimizations for dev env.
+      appConfig.optimization = Object.assign({}, appConfig.optimization, {
+        runtimeChunk: true,
+        splitChunks: {
+          chunks: 'all',
+          name: dev,
+        },
+      })
     }
 
     // Add bundle analyzer.

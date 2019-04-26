@@ -1,7 +1,6 @@
 import 'isomorphic-fetch';
 import thunkMiddleware from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
-import { routerMiddleware } from 'react-router-redux';
 import { persistReducer } from 'redux-persist';
 import { apiMiddleware } from 'redux-api-middleware';
 
@@ -23,17 +22,14 @@ import requestMiddleware from './middleware/requestMiddleware';
  *
  * @param {Object} initialState
  *  Initial redux state.
- * @param {Object} history
- *  Route history object.
  *
  * @return {Object}
  *  Redux store.
  */
-const reduxConfigureStore = (initialState = {}, history) => {
+const reduxConfigureStore = (initialState = {}) => {
   const middleware = [
     requestMiddleware,
     apiMiddleware,
-    routerMiddleware(history),
     thunkMiddleware,
   ];
 

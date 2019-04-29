@@ -1,9 +1,9 @@
 import React from 'react';
-import { loadableReady } from '@loadable/component'
+import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
+import { loadableReady } from '@loadable/component';
 import { persistStore } from 'redux-persist';
-import { Provider } from 'react-redux';
 import { hydrate } from 'react-dom';
 
 // Components.
@@ -31,7 +31,7 @@ const render = (Component) => {
 };
 
 loadableReady(() => {
-  render(App)
+  render(App);
 });
 
 if (module.hot) {

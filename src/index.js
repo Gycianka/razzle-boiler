@@ -11,7 +11,6 @@ const { port } = settings;
 // Replaceable server instance.
 let app = require('./server').default;
 
-// @TODO fix this mess.
 if (module.hot) {
   module.hot.accept('./server', () => {
     console.log('🔁  HMR Reloading `./server`...');

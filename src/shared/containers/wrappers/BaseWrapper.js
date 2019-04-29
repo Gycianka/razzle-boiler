@@ -9,7 +9,7 @@ import Logo from '../../components/Logo';
 import Welcome from '../../components/Welcome';
 import Intro from '../../components/Intro';
 import MetaSite from '../../components/meta/MetaSite';
-import RoutesWithSubRoutes from "../../routes/RoutesWithSubRoutes";
+import RoutesWithSubRoutes from '../../routes/RoutesWithSubRoutes';
 
 // Utilities.
 import routesPropTypes from '../../utilities/propTypes/routesPropTypes';

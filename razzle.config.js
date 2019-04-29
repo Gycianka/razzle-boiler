@@ -14,7 +14,7 @@ const postCssCalc = require('postcss-calc');
 const DEV_ANALYZE = false;
 
 module.exports = {
-  plugins: [
+  plugins: ['eslint',
     {
       name: 'scss',
       options: {

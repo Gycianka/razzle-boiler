@@ -1,4 +1,4 @@
-import loadable from '@loadable/component'
+import loadable from '@loadable/component';
 
 const HtmlLoadable = loadable(() => import('./Html'));
 

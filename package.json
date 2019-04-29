@@ -45,6 +45,7 @@
     "postcss-flexbugs-fixes": "4.1.0",
     "postcss-inline-svg": "3.1.1",
     "razzle": "3.0.0",
+    "razzle-plugin-eslint": "^3.0.0",
     "razzle-plugin-scss": "3.0.0",
     "stylelint": "8.4.0",
     "stylelint-scss": "3.5.4",

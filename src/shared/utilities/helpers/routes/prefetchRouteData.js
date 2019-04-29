@@ -1,6 +1,9 @@
 import { matchPath } from 'react-router-dom';
 import { reduce } from 'lodash';
 
+// Utilities.
+import isBrowser from '../../common/isBrowser';
+
 /**
  * Prefetch router data.
  *
@@ -29,6 +32,7 @@ const prefetchRouteData = ({
         routes: route.routes,
       }),
       ...(match && route.prefetch ? [route.prefetch({ dispatch, match })] : []),
+      ...(match && route.isLoadable && isBrowser ? [route.component.preload()] : [])
     ];
   }, [])
 );

@@ -5,7 +5,7 @@ import { map } from 'lodash';
 import RouteWithSubRoutes from './RouteWithSubRoutes';
 
 // Utilities.
-import routesPropTypes from '../utilities/propTypes/routesPropTypes';
+import routesPropTypes from '../../utilities/propTypes/routesPropTypes';
 
 const RoutesWithSubRoutes = ({ routes }) => (
   <React.Fragment>

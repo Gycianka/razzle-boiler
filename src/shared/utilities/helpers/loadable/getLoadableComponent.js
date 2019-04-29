@@ -1,13 +1,20 @@
-import React from 'react';
-import loadable from "@loadable/component";
+import loadable from '@loadable/component';
 
-const getLoadableComponent = (fn, options) => {
-  const Component = loadable(fn, options);
+/**
+ * Get loadable component with default options and preload as promise.
+ *
+ * @param {function} loader
+ *  Component loader.
+ * @param {Object} options
+ *  Loadable options.
+ *
+ * @return {Object}
+ *  Loadable component.
+ */
+const getLoadableComponent = (loader, options = {}) => {
+  const Component = loadable(loader, options);
 
-  Component.preload = fn.requireAsync || fn;
-  Component.fakeRender = (props) => (
-    <Component {...props}/>
-  );
+  Component.preload = loader.requireAsync || loader;
 
   return Component;
 };

@@ -19,7 +19,7 @@ import Template from '../components/Template';
 
 // Utilities.
 import getBaseUrl from '../utilities/getBaseUrl';
-import prefetchRouteData from '../utilities/prefetchRouteData';
+import prefetchRouteData from '../../shared/utilities/helpers/routes/prefetchRouteData';
 
 const mainController = ({
   assets,

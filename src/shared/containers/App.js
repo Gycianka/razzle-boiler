@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import '../assets/styles/App.scss';
 
 // Components.
-import RoutesWithSubRoutes from '../routes/RoutesWithSubRoutes';
+import RoutesWithSubRoutes from '../components/routes/RoutesWithSubRoutes';
+import RoutesPreloader from '../components/routes/RoutesPreloader';
 import MediaQueryHandler from '../components/utilities/MediaQueryHandler';
 
 // Routes.
@@ -18,7 +19,9 @@ const App = ({
 }) => (
   <div className={mediaQuery.className}>
     <MediaQueryHandler/>
-    <RoutesWithSubRoutes routes={routes}/>
+    <RoutesPreloader routes={routes}>
+      <RoutesWithSubRoutes routes={routes}/>
+    </RoutesPreloader>
   </div>
 );
 

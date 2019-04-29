@@ -18,26 +18,31 @@ const routes = [
         path: '/',
         exact: true,
         component: HomeLoadable,
+        isLoadable: true,
       },
       {
         path: '/about',
         exact: true,
         component: AboutLoadable,
+        isLoadable: true,
       },
       {
         path: '/counter',
         exact: true,
         component: CounterLoadable,
+        isLoadable: true,
       },
       {
         path: '/html',
         exact: true,
         component: HtmlLoadable,
+        isLoadable: true,
       },
       {
         path: '/posts',
         exact: true,
         component: PostsLoadable,
+        isLoadable: true,
         prefetch: ({ dispatch }) => (
           dispatch(postsGetPostsApi())
         ),

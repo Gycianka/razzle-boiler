@@ -1,20 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
 
 // Utilities.
-import routePropTypes from '../utilities/propTypes/routePropTypes';
+import routePropTypes from '../../utilities/propTypes/routePropTypes';
 
 class RouteWithSubRoutes extends React.PureComponent {
-  componentDidMount() {
-
-    // Prefetch data if needed.
-    this.props.prefetch && this.props.prefetch({
-      dispatch: this.props.dispatch,
-    });
-  }
-
   renderComponent = (props) => (
     <this.props.component
       {...props}
@@ -35,6 +25,4 @@ class RouteWithSubRoutes extends React.PureComponent {
 
 RouteWithSubRoutes.propTypes = routePropTypes;
 
-export default compose(
-  connect(), // We just need dispatch in props.
-)(RouteWithSubRoutes);
+export default RouteWithSubRoutes;

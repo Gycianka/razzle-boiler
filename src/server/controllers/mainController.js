@@ -1,17 +1,9 @@
 import React from 'react';
 import path from 'path';
-import { renderToStaticMarkup, renderToString } from 'react-dom/server';
-
-// Redux.
-import reduxConfigureStore from '../../shared/utilities/redux/reduxConfigureStore';
 import { Provider } from 'react-redux';
-
-// Loadable.
-import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server'
-
-// React router.
-import routes from '../../shared/routes';
 import { StaticRouter } from 'react-router-dom';
+import { renderToStaticMarkup, renderToString } from 'react-dom/server';
+import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 
 // Components.
 import App from '../../shared/containers/App';
@@ -19,13 +11,17 @@ import Template from '../components/Template';
 
 // Utilities.
 import getBaseUrl from '../utilities/getBaseUrl';
+import errorResponse from '../utilities/errorResponse';
 import prefetchRouteData from '../../shared/utilities/helpers/routes/prefetchRouteData';
+import reduxConfigureStore from '../../shared/utilities/redux/reduxConfigureStore';
+
+// Routes.
+import routes from '../../shared/routes';
 
 const mainController = ({
   assets,
   settings,
 }) => (req, res) => {
-
   const initialState = {
     app: {
       ...settings,
@@ -80,6 +76,8 @@ const mainController = ({
     );
 
     res.status(context.statusCode || 200).send('<!doctype html>\n' + templateMarkup);
+  }).catch((error) => {
+    errorResponse(res, error.message);
   });
 };
 

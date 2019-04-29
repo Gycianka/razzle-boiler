@@ -6,7 +6,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const LoadablePlugin = require('@loadable/webpack-plugin');
 
 // Post CSS plugins.
-const autoprefixer = require('autoprefixer');
+const autoPreFixer = require('autoprefixer');
 const postCssInlineSvg = require('postcss-inline-svg');
 const postCssFlexBugFixes = require('postcss-flexbugs-fixes');
 const postCssCalc = require('postcss-calc');
@@ -21,7 +21,7 @@ module.exports = {
         postcss: {
           plugins: [
             postCssFlexBugFixes,
-            autoprefixer({
+            autoPreFixer({
               browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 9'],
               flexbox: 'no-2009',
             }),
@@ -69,7 +69,7 @@ module.exports = {
           chunks: 'all',
           name: dev,
         },
-      })
+      });
     }
 
     // Add bundle analyzer.

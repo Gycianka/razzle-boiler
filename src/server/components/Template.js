@@ -48,7 +48,8 @@ const Template = ({
 };
 
 Template.propTypes = {
-  state: PropTypes.object,
+  state: PropTypes.object.isRequired,
+  extractor: PropTypes.object.isRequired,
   markup: PropTypes.string.isRequired,
 };
 

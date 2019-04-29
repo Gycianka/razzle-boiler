@@ -1,4 +1,5 @@
 import React from 'react';
+import { Switch } from 'react-router-dom';
 import { map } from 'lodash';
 
 // Components.
@@ -8,11 +9,11 @@ import RouteWithSubRoutes from './RouteWithSubRoutes';
 import routesPropTypes from '../../utilities/propTypes/routesPropTypes';
 
 const RoutesWithSubRoutes = ({ routes }) => (
-  <React.Fragment>
+  <Switch>
     {map(routes, (item, index) => (
       <RouteWithSubRoutes key={index} {...item} />
     ))}
-  </React.Fragment>
+  </Switch>
 );
 
 RoutesWithSubRoutes.propTypes = {

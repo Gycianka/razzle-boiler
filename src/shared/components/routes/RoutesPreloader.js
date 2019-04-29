@@ -18,9 +18,18 @@ class RoutesPreloader extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.location !== this.props.location) {
-      this.onLocationChange();
+    if (prevProps.location === this.props.location) {
+      return;
     }
+
+    // If pathname changes we have to dispatch actions.
+    if (prevProps.location.pathname !== this.props.location.pathname) {
+      this.onLocationChange();
+      return;
+    }
+
+    // Otherwise update location with new params and stuff.
+    this.setPreviousLocation(this.props.location);
   }
 
   onLocationChange = () => {

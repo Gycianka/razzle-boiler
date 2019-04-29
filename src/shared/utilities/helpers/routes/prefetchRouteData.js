@@ -1,5 +1,5 @@
-import { matchPath } from 'react-router-dom';
 import { reduce } from 'lodash';
+import { matchPath } from 'react-router-dom';
 
 // Utilities.
 import isBrowser from '../../common/isBrowser';
@@ -21,9 +21,16 @@ const prefetchRouteData = ({
   path,
   dispatch,
   routes,
-}) => (
-  reduce(routes, (result, route) => {
-    const match = matchPath(path, route);
+}) => {
+  let match = false;
+  return reduce(routes, (result, route) => {
+
+    // To simulate "switch" behavior.
+    if (match) {
+      return result;
+    }
+
+    match = matchPath(path, route);
     return [
       ...result,
       ...prefetchRouteData({
@@ -34,7 +41,7 @@ const prefetchRouteData = ({
       ...(match && route.prefetch ? [route.prefetch({ dispatch, match })] : []),
       ...(match && route.isLoadable && isBrowser ? [route.component.preload()] : [])
     ];
-  }, [])
-);
+  }, []);
+};
 
 export default prefetchRouteData;

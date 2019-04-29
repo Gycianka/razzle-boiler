@@ -16,6 +16,7 @@ import { ENVIRONMENTS_DEVELOPMENT } from '../../constants/Settings';
 
 // Middleware.
 import requestMiddleware from './middleware/requestMiddleware';
+import asyncMiddleware from './middleware/asyncMiddleware';
 
 /**
  * Config redux store.
@@ -30,6 +31,7 @@ const reduxConfigureStore = (initialState = {}) => {
   const middleware = [
     requestMiddleware,
     apiMiddleware,
+    asyncMiddleware,
     thunkMiddleware,
   ];
 
